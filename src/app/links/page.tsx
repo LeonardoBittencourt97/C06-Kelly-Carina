@@ -82,20 +82,11 @@ export default function LinksPage() {
       <main className="relative z-10 w-full max-w-6xl mx-auto flex flex-col items-center lg:grid lg:grid-cols-2 lg:gap-12 xl:gap-16 lg:items-center">
         {/* LEFT COLUMN (Desktop 50%) / TOP (Mobile) */}
         <div className="flex flex-col items-center justify-center w-full p-4 lg:p-8">
-          <div className="relative w-56 h-56 sm:w-72 sm:h-72 lg:w-[400px] lg:h-[400px] xl:w-[460px] xl:h-[460px] flex items-center justify-center rounded-2xl overflow-hidden shadow-2xl border border-[var(--border-color)] bg-[var(--bg-card)]">
-            {/* Logo Light */}
+          <div className="relative w-56 h-56 sm:w-72 sm:h-72 lg:w-[400px] lg:h-[400px] xl:w-[460px] xl:h-[460px] flex items-center justify-center">
             <img
-              src="/Logo_com_fundo_branco.jpeg"
+              src="/Logo_com_fundo_branco.png"
               alt="Advocacia Kelly Carina"
-              className="logo-theme-light w-full h-full object-cover"
-              width={500}
-              height={500}
-            />
-            {/* Logo Dark */}
-            <img
-              src="/Logo_com_fundo_preto.jpeg"
-              alt="Advocacia Kelly Carina"
-              className="logo-theme-dark w-full h-full object-cover"
+              className="w-full h-full object-contain filter drop-shadow-xl"
               width={500}
               height={500}
             />

@@ -20,10 +20,10 @@ export default function Footer() {
           <div>
             <div className="relative h-16 w-32">
               <Image
-                src="/Logo_com_fundo_preto.jpeg"
+                src="/Logo_com_fundo_branco.png"
                 alt="Advocacia Kelly Carina"
                 fill
-                className="object-contain"
+                className="object-contain object-left"
               />
             </div>
             <p className="mt-3 text-sm text-gray-400">{SITE.name}</p>

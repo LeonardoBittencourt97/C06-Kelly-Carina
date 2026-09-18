@@ -75,7 +75,7 @@ export default function Header() {
             >
               <div className="relative h-16 w-16 sm:h-20 sm:w-20 md:h-20 md:w-20">
                 <Image
-                  src={theme === "dark" ? "/Logo_com_fundo_preto.jpeg" : "/Logo_com_fundo_branco.jpeg"}
+                  src="/Logo_com_fundo_branco.png"
                   alt="Advocacia Kelly Carina"
                   fill
                   className="object-contain"
@@ -175,7 +175,7 @@ export default function Header() {
           <div className="flex items-center">
             <div className="relative h-14 w-14">
               <Image
-                src={theme === "dark" ? "/Logo_com_fundo_preto.jpeg" : "/Logo_com_fundo_branco.jpeg"}
+                src="/Logo_com_fundo_branco.png"
                 alt="Advocacia Kelly Carina"
                 fill
                 className="object-contain"
