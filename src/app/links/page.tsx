@@ -248,12 +248,17 @@ export default function LinksPage() {
                 href={link.url}
                 target={link.url.startsWith('http') ? '_blank' : undefined}
                 rel={link.url.startsWith('http') ? 'noopener noreferrer' : undefined}
-                className="group relative flex items-center justify-center gap-3 rounded-xl px-5 py-3 sm:py-3.5 text-sm sm:text-base font-semibold transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] shadow-lg bg-[#0A0A0A] text-[#C9A84C] border border-[#C9A84C]/80 hover:bg-[#161616] hover:text-[#D4B96A] hover:border-[#D4B96A] hover:shadow-[0_0_20px_rgba(201,168,76,0.3)]"
+                className="group relative flex items-center justify-center gap-3 rounded-xl px-5 py-3 sm:py-3.5 text-sm sm:text-base font-semibold transition-all duration-300 hover:scale-[1.02] active:scale-[0.98] bg-white text-[#0A0A0A] border-2 border-[#C9A84C] hover:border-[#8B6914] hover:bg-[#FFFDF7] shadow-[0_4px_20px_rgba(201,168,76,0.35)] hover:shadow-[0_8px_28px_rgba(201,168,76,0.55)]"
+                style={{
+                  boxShadow: '0 4px 20px rgba(201, 168, 76, 0.35)',
+                }}
               >
-                <span className="text-[#C9A84C] transition-colors group-hover:text-[#D4B96A]">
+                <span className="text-[#8B6914] transition-colors group-hover:text-[#C9A84C]">
                   {iconMap[link.icon] ?? null}
                 </span>
-                <span>{link.label}</span>
+                <span className="text-[#0A0A0A] group-hover:text-[#8B6914] transition-colors">
+                  {link.label}
+                </span>
               </a>
             ))}
           </div>
