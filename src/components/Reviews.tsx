@@ -1,13 +1,71 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect, useRef, useCallback } from 'react';
+import { ChevronLeft, ChevronRight, Star } from 'lucide-react';
 import { REVIEWS } from '@/lib/constants';
 import GeometricBackground from '@/components/GeometricBackground';
 import SectionCTA from '@/components/SectionCTA';
 
 export default function Reviews() {
-  const items = [...REVIEWS.items, ...REVIEWS.items];
-  const [hoveredDot, setHoveredDot] = useState<number | null>(null);
+  const reviews = REVIEWS.items;
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [itemsPerView, setItemsPerView] = useState(3);
+  const [isPaused, setIsPaused] = useState(false);
+  const touchStartX = useRef<number | null>(null);
+
+  // Calcula quantos cards cabem na tela dinamicamente
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 640) {
+        setItemsPerView(1);
+      } else if (window.innerWidth < 1024) {
+        setItemsPerView(2);
+      } else {
+        setItemsPerView(3);
+      }
+    };
+
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  const maxIndex = Math.max(0, reviews.length - itemsPerView);
+
+  const handleNext = useCallback(() => {
+    setCurrentIndex((prev) => (prev >= maxIndex ? 0 : prev + 1));
+  }, [maxIndex]);
+
+  const handlePrev = useCallback(() => {
+    setCurrentIndex((prev) => (prev <= 0 ? maxIndex : prev - 1));
+  }, [maxIndex]);
+
+  // Auto-play ativo e dinâmico a cada 3.5 segundos (pausa quando o usuário passa o mouse)
+  useEffect(() => {
+    if (isPaused) return;
+
+    const interval = setInterval(() => {
+      handleNext();
+    }, 3500);
+
+    return () => clearInterval(interval);
+  }, [isPaused, handleNext]);
+
+  // Suporte a swipe no mobile
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartX.current = e.touches[0].clientX;
+  };
+
+  const handleTouchEnd = (e: React.TouchEvent) => {
+    if (touchStartX.current === null) return;
+    const diffX = touchStartX.current - e.changedTouches[0].clientX;
+    if (diffX > 45) {
+      handleNext();
+    } else if (diffX < -45) {
+      handlePrev();
+    }
+    touchStartX.current = null;
+  };
 
   return (
     <section
@@ -19,76 +77,183 @@ export default function Reviews() {
       <GeometricBackground patternId="reviews-geom-pattern" />
 
       <div className="max-w-6xl mx-auto relative z-10">
+        {/* Badge Google Reviews */}
+        <div className="flex justify-center mb-3">
+          <span
+            className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-semibold tracking-wider uppercase border shadow-sm"
+            style={{
+              borderColor: 'var(--color-gold)',
+              color: 'var(--color-gold)',
+              backgroundColor: 'rgba(201, 168, 76, 0.1)',
+            }}
+          >
+            <svg className="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14.5v-9l6 4.5-6 4.5z" />
+            </svg>
+            <span>Avaliações Verificadas no Google</span>
+          </span>
+        </div>
+
         <h2
-          className="text-3xl md:text-4xl font-bold text-center mb-4 uppercase tracking-wide"
+          className="text-3xl md:text-4xl font-bold text-center mb-3 uppercase tracking-wide"
           style={{ color: 'var(--text-primary)', fontFamily: 'var(--font-heading)' }}
         >
           {REVIEWS.title}
         </h2>
         <p
-          className="text-center mb-12"
+          className="text-center mb-10 max-w-xl mx-auto text-sm sm:text-base"
           style={{ color: 'var(--text-secondary)' }}
         >
-          {REVIEWS.subtitle}
+          {REVIEWS.subtitle} — Clientes que tiveram seus direitos assegurados
         </p>
 
-        {/* Carousel Track */}
-        <div className="overflow-hidden rounded-xl">
-          <div className="reviews-track">
-            {items.map((review, i) => (
-              <div
-                key={i}
-                className="flex-shrink-0 w-[320px] md:w-[360px] p-6 mx-3 rounded-xl card-hover relative z-10 shadow-sm"
-                style={{
-                  backgroundColor: 'var(--bg-card)',
-                  border: '1px solid var(--border-color)',
-                }}
-              >
-                <div className="flex items-center gap-1 mb-3">
-                  {Array.from({ length: review.rating }).map((_, j) => (
-                    <svg
-                      key={j}
-                      className="w-5 h-5 fill-current"
-                      style={{ color: 'var(--color-gold)' }}
-                      viewBox="0 0 20 20"
-                    >
-                      <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                    </svg>
-                  ))}
+        {/* Carousel Container com Botões Laterais */}
+        <div
+          className="relative px-0 sm:px-3"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onTouchStart={handleTouchStart}
+          onTouchEnd={handleTouchEnd}
+        >
+          {/* Botão Anterior (Desktop / Tablet) */}
+          <button
+            onClick={handlePrev}
+            aria-label="Depoimento anterior"
+            className="hidden sm:flex absolute -left-3 lg:-left-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 items-center justify-center rounded-full border shadow-lg transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer"
+            style={{
+              backgroundColor: 'var(--bg-card)',
+              borderColor: 'var(--color-gold)',
+              color: 'var(--color-gold)',
+            }}
+          >
+            <ChevronLeft className="w-6 h-6" />
+          </button>
+
+          {/* Botão Próximo (Desktop / Tablet) */}
+          <button
+            onClick={handleNext}
+            aria-label="Próximo depoimento"
+            className="hidden sm:flex absolute -right-3 lg:-right-6 top-1/2 -translate-y-1/2 z-20 w-11 h-11 items-center justify-center rounded-full border shadow-lg transition-all duration-300 hover:scale-110 active:scale-95 cursor-pointer"
+            style={{
+              backgroundColor: 'var(--bg-card)',
+              borderColor: 'var(--color-gold)',
+              color: 'var(--color-gold)',
+            }}
+          >
+            <ChevronRight className="w-6 h-6" />
+          </button>
+
+          {/* Janela de Visualização dos Cards */}
+          <div className="overflow-hidden rounded-2xl py-2">
+            <div
+              className="flex transition-transform duration-500 ease-out"
+              style={{
+                transform: `translateX(-${currentIndex * (100 / itemsPerView)}%)`,
+              }}
+            >
+              {reviews.map((review, i) => (
+                <div
+                  key={i}
+                  className="w-full sm:w-1/2 lg:w-1/3 flex-shrink-0 px-2.5 sm:px-3"
+                >
+                  <div
+                    className="h-full flex flex-col justify-between p-6 sm:p-7 rounded-2xl card-hover relative z-10 shadow-sm min-h-[260px]"
+                    style={{
+                      backgroundColor: 'var(--bg-card)',
+                      border: '1px solid var(--border-color)',
+                    }}
+                  >
+                    <div>
+                      {/* Estrelas + Selo 5.0 */}
+                      <div className="flex items-center justify-between mb-4">
+                        <div className="flex items-center gap-1">
+                          {Array.from({ length: review.rating }).map((_, j) => (
+                            <Star
+                              key={j}
+                              className="w-4 h-4 fill-[#C9A84C] text-[#C9A84C]"
+                            />
+                          ))}
+                        </div>
+                        <span className="text-[11px] font-bold px-2 py-0.5 rounded bg-[var(--color-gold)]/15 text-[#C9A84C]">
+                          5.0 ★
+                        </span>
+                      </div>
+
+                      {/* Texto da Avaliação */}
+                      <p
+                        className="text-sm leading-relaxed mb-4 italic"
+                        style={{ color: 'var(--text-secondary)' }}
+                      >
+                        &ldquo;{review.text}&rdquo;
+                      </p>
+                    </div>
+
+                    {/* Nome do Cliente */}
+                    <div className="pt-3 border-t border-[var(--border-color)]/60 flex items-center justify-between">
+                      <p
+                        className="font-semibold text-sm tracking-wide"
+                        style={{ color: 'var(--text-primary)' }}
+                      >
+                        {review.name}
+                      </p>
+                      <span className="text-[10px] uppercase font-semibold text-[var(--color-gold)]">
+                        Verificado
+                      </span>
+                    </div>
+                  </div>
                 </div>
-                <p
-                  className="text-sm leading-relaxed mb-4"
-                  style={{ color: 'var(--text-secondary)' }}
-                >
-                  &ldquo;{review.text}&rdquo;
-                </p>
-                <p
-                  className="font-semibold text-sm"
-                  style={{ color: 'var(--text-primary)' }}
-                >
-                  — {review.name}
-                </p>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
 
-        {/* Navigation Dots */}
-        <div className="flex justify-center gap-2 mt-8">
-          {REVIEWS.items.map((_, i) => (
+        {/* Controles Mobile (Botões Anterior e Próximo no celular) */}
+        <div className="flex items-center justify-between gap-3 mt-5 sm:hidden px-2">
+          <button
+            onClick={handlePrev}
+            className="flex-1 flex items-center justify-center gap-1.5 py-3 rounded-xl border text-xs font-semibold shadow-sm active:scale-95 transition-all"
+            style={{
+              backgroundColor: 'var(--bg-card)',
+              borderColor: 'var(--border-color)',
+              color: 'var(--text-primary)',
+            }}
+          >
+            <ChevronLeft className="w-4 h-4 text-[#C9A84C]" />
+            <span>Anterior</span>
+          </button>
+
+          <span className="text-xs font-medium text-[var(--text-secondary)] px-2">
+            {currentIndex + 1} / {reviews.length}
+          </span>
+
+          <button
+            onClick={handleNext}
+            className="flex-1 flex items-center justify-center gap-1.5 py-3 rounded-xl text-xs font-bold shadow-md active:scale-95 transition-all"
+            style={{
+              background: 'linear-gradient(135deg, var(--color-gold), var(--color-gold-dark))',
+              color: '#0A0A0A',
+            }}
+          >
+            <span>Próximo</span>
+            <ChevronRight className="w-4 h-4" />
+          </button>
+        </div>
+
+        {/* Indicadores / Dots de Navegação */}
+        <div className="flex justify-center items-center gap-1.5 sm:gap-2 mt-8 flex-wrap">
+          {Array.from({ length: maxIndex + 1 }).map((_, i) => (
             <button
               key={i}
-              onMouseEnter={() => setHoveredDot(i)}
-              onMouseLeave={() => setHoveredDot(null)}
-              className="w-3 h-3 rounded-full transition-all duration-300"
+              onClick={() => setCurrentIndex(i)}
+              className="h-2 rounded-full transition-all duration-300 cursor-pointer"
               style={{
+                width: currentIndex === i ? '24px' : '8px',
                 backgroundColor:
-                  hoveredDot === i
+                  currentIndex === i
                     ? 'var(--color-gold)'
                     : 'var(--border-color)',
-                transform: hoveredDot === i ? 'scale(1.25)' : 'scale(1)',
               }}
-              aria-label={`Review ${i + 1}`}
+              aria-label={`Ir para o grupo de depoimentos ${i + 1}`}
             />
           ))}
         </div>

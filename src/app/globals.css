@@ -120,15 +120,6 @@ body {
   animation: fade-in 0.6s ease-out forwards;
 }
 
-/* Reviews carousel */
-.reviews-track {
-  display: flex;
-  animation: scroll-left 40s linear infinite;
-}
-
-.reviews-track:hover {
-  animation-play-state: paused;
-}
 
 /* WhatsApp button */
 .whatsapp-float {
