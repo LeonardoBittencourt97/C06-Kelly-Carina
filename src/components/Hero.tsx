@@ -55,7 +55,7 @@ export default function Hero() {
       </div>
 
       <div className="container mx-auto px-6 lg:px-12 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-12 items-center min-h-screen py-24">
+        <div className="grid grid-cols-1 lg:grid-cols-[3fr_2fr] gap-12 items-center min-h-screen pt-28 pb-16 lg:py-24">
           {/* Left side — Text */}
           <div className="flex flex-col gap-6">
             {/* Badge */}
