@@ -50,10 +50,10 @@ export default function Header() {
       href={CONTACT.whatsappLink}
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-flex items-center gap-2 rounded-full bg-[#C9A84C] px-5 py-2.5 text-sm font-semibold text-black transition-all duration-300 hover:bg-[#D4B96A] hover:shadow-lg hover:shadow-[#C9A84C]/20 ${className}`}
+      className={`inline-flex items-center gap-1.5 sm:gap-2 rounded-full bg-[#25D366] px-3.5 py-1.5 sm:px-5 sm:py-2.5 text-xs sm:text-sm font-semibold text-white transition-all duration-300 hover:bg-[#20BA5A] hover:shadow-lg hover:shadow-[#25D366]/25 hover:scale-105 active:scale-95 ${className}`}
     >
-      <MessageCircle className="h-4 w-4" />
-      WhatsApp
+      <MessageCircle className="h-4 w-4 shrink-0 fill-white/10" />
+      <span>WhatsApp</span>
     </a>
   );
 
@@ -143,20 +143,21 @@ export default function Header() {
           </div>
 
           {/* ---------- Mobile right actions ---------- */}
-          <div className="flex items-center gap-2 lg:hidden">
+          <div className="flex items-center gap-1.5 sm:gap-2 lg:hidden">
+            <WhatsAppBtn />
             <button
               onClick={toggleTheme}
               aria-label="Alternar tema"
-              className="rounded-full p-2 text-[var(--text-primary)] transition-colors duration-200 hover:bg-[var(--bg-card)] hover:text-[#C9A84C]"
+              className="rounded-full p-1.5 sm:p-2 text-[var(--text-primary)] transition-colors duration-200 hover:bg-[var(--bg-card)] hover:text-[#C9A84C]"
             >
               {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </button>
             <button
               onClick={() => setIsOpen(!isOpen)}
               aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
-              className="rounded-lg p-2.5 text-[var(--text-primary)] transition-colors duration-200 hover:bg-[var(--bg-card)] focus:outline-none"
+              className="rounded-lg p-1.5 sm:p-2 text-[var(--text-primary)] transition-colors duration-200 hover:bg-[var(--bg-card)] focus:outline-none"
             >
-              {isOpen ? <X className="h-7 w-7" /> : <Menu className="h-7 w-7" />}
+              {isOpen ? <X className="h-6 w-6 sm:h-7 sm:w-7" /> : <Menu className="h-6 w-6 sm:h-7 sm:w-7" />}
             </button>
           </div>
         </nav>

@@ -169,3 +169,17 @@ body {
 .faq-answer.open {
   max-height: 500px;
 }
+
+/* Dynamic logo visibility by theme */
+.logo-theme-light {
+  display: block;
+}
+.logo-theme-dark {
+  display: none;
+}
+[data-theme="dark"] .logo-theme-light {
+  display: none !important;
+}
+[data-theme="dark"] .logo-theme-dark {
+  display: block !important;
+}
