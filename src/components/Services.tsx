@@ -14,6 +14,8 @@ import {
   Calculator,
 } from 'lucide-react';
 import { SERVICES } from '@/lib/constants';
+import GeometricBackground from '@/components/GeometricBackground';
+import SectionCTA from '@/components/SectionCTA';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -50,10 +52,13 @@ export default function ServicesSection() {
     <section
       id="servicos"
       ref={sectionRef}
-      className="py-20 px-4"
+      className="relative overflow-hidden py-20 px-4"
       style={{ backgroundColor: 'var(--bg-primary)' }}
     >
-      <div className="max-w-5xl mx-auto">
+      {/* Linhas geométricas douradas no fundo — não sobrepõe cards */}
+      <GeometricBackground patternId="services-geom-pattern" />
+
+      <div className="max-w-5xl mx-auto relative z-10">
         <h2
           className="text-3xl md:text-4xl font-bold text-center mb-12 uppercase tracking-wide"
           style={{ color: 'var(--text-primary)', fontFamily: 'var(--font-heading)' }}
@@ -68,7 +73,7 @@ export default function ServicesSection() {
               <div
                 key={service.id}
                 ref={(el) => { cardsRef.current[i] = el; }}
-                className="card-hover rounded-lg p-6"
+                className="card-hover rounded-lg p-6 relative z-10 shadow-sm"
                 style={{
                   backgroundColor: 'var(--bg-card)',
                   borderLeft: '4px solid var(--color-gold)',
@@ -109,6 +114,14 @@ export default function ServicesSection() {
             );
           })}
         </div>
+
+        {/* CTA Institucional de Alta Conversão */}
+        <SectionCTA
+          text="Solicitar Análise de Benefício"
+          helperText="Dúvidas sobre regras de transição, cálculo ou documentação necessária? Consulte nossa especialista."
+          message="Olá, Dra. Kelly! Gostaria de consultar a viabilidade do meu benefício previdenciário."
+          className="mt-6"
+        />
       </div>
     </section>
   );

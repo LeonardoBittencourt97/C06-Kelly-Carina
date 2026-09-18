@@ -2,6 +2,8 @@
 
 import { useEffect, useRef } from 'react';
 import { PROCESS } from '@/lib/constants';
+import GeometricBackground from '@/components/GeometricBackground';
+import SectionCTA from '@/components/SectionCTA';
 
 export default function Process() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -35,9 +37,20 @@ export default function Process() {
   }, []);
 
   return (
-    <section id="processo" className="py-20 px-4 bg-bg-primary">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-text-primary uppercase">
+    <section
+      id="processo"
+      ref={sectionRef}
+      className="py-20 px-4 relative overflow-hidden"
+      style={{ backgroundColor: 'var(--bg-primary)' }}
+    >
+      {/* Linhas geométricas douradas no fundo — não sobrepõe conteúdo */}
+      <GeometricBackground patternId="process-geom-pattern" />
+
+      <div className="max-w-6xl mx-auto relative z-10">
+        <h2
+          className="text-3xl md:text-4xl font-bold text-center mb-16 uppercase tracking-wide"
+          style={{ color: 'var(--text-primary)', fontFamily: 'var(--font-heading)' }}
+        >
           {PROCESS.title}
         </h2>
 
@@ -54,20 +67,40 @@ export default function Process() {
               className="relative flex flex-col items-center text-center w-full md:w-1/4 mb-12 md:mb-0"
             >
               {/* Step number circle */}
-              <div className="relative z-10 flex items-center justify-center w-20 h-20 rounded-full bg-gold text-dark font-bold text-xl mb-4 shadow-lg">
+              <div
+                className="relative z-10 flex items-center justify-center w-20 h-20 rounded-full font-bold text-xl mb-4 shadow-lg"
+                style={{
+                  backgroundColor: 'var(--color-gold)',
+                  color: 'var(--color-dark)',
+                }}
+              >
                 {step.number}
               </div>
 
               {/* Step content */}
-              <h3 className="text-text-primary font-semibold text-lg mb-2 uppercase">
+              <h3
+                className="font-semibold text-lg mb-2 uppercase"
+                style={{ color: 'var(--text-primary)' }}
+              >
                 {step.title}
               </h3>
-              <p className="text-text-secondary text-sm leading-relaxed px-4">
+              <p
+                className="text-sm leading-relaxed px-4"
+                style={{ color: 'var(--text-secondary)' }}
+              >
                 {step.description}
               </p>
             </div>
           ))}
         </div>
+
+        {/* CTA Institucional de Alta Conversão */}
+        <SectionCTA
+          text="Iniciar Análise do Meu Processo"
+          helperText="Dê o primeiro passo para garantir seus direitos com acompanhamento dedicado do início ao fim."
+          message="Olá, Dra. Kelly! Gostaria de dar o primeiro passo e enviar minhas dúvidas/documentos para análise."
+          className="mt-6"
+        />
       </div>
     </section>
   );

@@ -5,6 +5,8 @@ import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { ABOUT } from '@/lib/constants';
+import GeometricBackground from '@/components/GeometricBackground';
+import SectionCTA from '@/components/SectionCTA';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -84,10 +86,13 @@ export default function About() {
     <section
       ref={sectionRef}
       id="sobre"
-      className="py-20 sm:py-28"
+      className="relative overflow-hidden py-20 sm:py-28"
       style={{ backgroundColor: 'var(--bg-primary)' }}
     >
-      <div className="container mx-auto px-6 lg:px-12">
+      {/* Linhas geométricas douradas no fundo — não sobrepõe conteúdo */}
+      <GeometricBackground patternId="about-geom-pattern" />
+
+      <div className="container mx-auto px-6 lg:px-12 relative z-10">
         {/* Title */}
         <h2
           ref={titleRef}
@@ -110,7 +115,7 @@ export default function About() {
         <div className="grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-12 lg:gap-16 items-start max-w-6xl mx-auto">
           {/* Photo */}
           <div ref={photoRef} className="flex justify-center lg:justify-start">
-            <div className="relative w-72 h-80 sm:w-80 sm:h-96 lg:w-96 lg:h-[30rem] rounded-2xl overflow-hidden">
+            <div className="relative w-72 h-80 sm:w-80 sm:h-96 lg:w-96 lg:h-[30rem] rounded-2xl overflow-hidden shadow-xl bg-[var(--bg-card)]">
               {/* Gold border */}
               <div
                 className="absolute inset-0 rounded-2xl pointer-events-none z-10"
@@ -134,7 +139,7 @@ export default function About() {
           </div>
 
           {/* Text content */}
-          <div className="flex flex-col gap-8">
+          <div className="flex flex-col gap-6">
             {/* Bio */}
             <p
               ref={bioRef}
@@ -166,7 +171,7 @@ export default function About() {
                     </svg>
                   </span>
                   <span
-                    className="text-sm sm:text-base"
+                    className="text-sm sm:text-base font-medium"
                     style={{ color: 'var(--text-primary)' }}
                   >
                     {item}
@@ -174,6 +179,15 @@ export default function About() {
                 </div>
               ))}
             </div>
+
+            {/* CTA Institucional de Alta Conversão */}
+            <SectionCTA
+              align="left"
+              text="Agendar Atendimento com a Dra. Kelly"
+              helperText="Atendimento consultivo individualizado e com total sigilo profissional."
+              message="Olá, Dra. Kelly! Conheci sua trajetória pelo site e gostaria de agendar um atendimento para avaliar o meu caso."
+              className="!pt-3"
+            />
           </div>
         </div>
       </div>

@@ -5,6 +5,8 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { AlertTriangle, Calculator, Clock, HardHat } from 'lucide-react';
 import { EDUCATION } from '@/lib/constants';
+import GeometricBackground from '@/components/GeometricBackground';
+import SectionCTA from '@/components/SectionCTA';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -41,12 +43,15 @@ export default function EducationSection() {
     <section
       id="entenda-seus-direitos"
       ref={sectionRef}
-      className="py-20 px-4 relative scroll-mt-20"
+      className="py-20 px-4 relative overflow-hidden scroll-mt-20"
       style={{
         backgroundColor: 'color-mix(in srgb, var(--bg-primary) 95%, var(--color-gold) 5%)',
       }}
     >
-      <div className="max-w-5xl mx-auto">
+      {/* Linhas geométricas douradas no fundo — não sobrepõe cards */}
+      <GeometricBackground patternId="education-geom-pattern" />
+
+      <div className="max-w-5xl mx-auto relative z-10">
         <h2
           className="text-3xl md:text-4xl font-bold text-center mb-4 uppercase tracking-wide"
           style={{ color: 'var(--text-primary)', fontFamily: 'var(--font-heading)' }}
@@ -67,7 +72,7 @@ export default function EducationSection() {
               <div
                 key={i}
                 ref={(el) => { cardsRef.current[i] = el; }}
-                className="card-hover rounded-lg p-6"
+                className="card-hover rounded-lg p-6 relative z-10 shadow-sm"
                 style={{
                   backgroundColor: 'var(--bg-card)',
                   border: '1px solid var(--border-color)',
@@ -102,6 +107,14 @@ export default function EducationSection() {
             );
           })}
         </div>
+
+        {/* CTA Institucional de Alta Conversão */}
+        <SectionCTA
+          text="Consultar Viabilidade do Meu Caso"
+          helperText="Passou por perícia indevida, corte de benefício ou atraso do INSS? Avaliamos suas opções legais."
+          message="Olá, Dra. Kelly! Identifiquei uma situação semelhante à minha no site e gostaria de uma orientação jurídica."
+          className="mt-6"
+        />
       </div>
     </section>
   );

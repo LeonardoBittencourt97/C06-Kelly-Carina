@@ -5,23 +5,41 @@ import Image from "next/image";
 import { Menu, X, Moon, Sun, MessageCircle, ChevronDown } from "lucide-react";
 import { NAV, CONTACT } from "@/lib/constants";
 
+/* ---------- WhatsApp button (reused) ---------- */
+function WhatsAppBtn({ className = "" }: { className?: string }) {
+  return (
+    <a
+      href={CONTACT.whatsappLink}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`inline-flex items-center gap-1.5 sm:gap-2 rounded-full bg-[#25D366] px-3.5 py-1.5 sm:px-5 sm:py-2.5 text-xs sm:text-sm font-semibold text-white transition-all duration-300 hover:bg-[#20BA5A] hover:shadow-lg hover:shadow-[#25D366]/25 hover:scale-105 active:scale-95 ${className}`}
+    >
+      <MessageCircle className="h-4 w-4 shrink-0 fill-white/10" />
+      <span>WhatsApp</span>
+    </a>
+  );
+}
+
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+  const [theme, setTheme] = useState<"light" | "dark">(() => {
+    if (typeof window !== "undefined") {
+      const saved = localStorage.getItem("theme");
+      if (saved === "dark" || saved === "light") return saved;
+    }
+    return "light";
+  });
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
   // Theme init + scroll listener
   useEffect(() => {
-    const saved = localStorage.getItem("theme") as "light" | "dark" | null;
-    const initial = saved === "dark" ? "dark" : "light";
-    setTheme(initial);
-    document.documentElement.setAttribute("data-theme", initial);
+    document.documentElement.setAttribute("data-theme", theme);
 
     const onScroll = () => setIsScrolled(window.scrollY > 20);
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [theme]);
 
   const toggleTheme = () => {
     const next = theme === "dark" ? "light" : "dark";
@@ -43,19 +61,6 @@ export default function Header() {
       document.body.style.overflow = "";
     };
   }, [isOpen]);
-
-  /* ---------- WhatsApp button (reused) ---------- */
-  const WhatsAppBtn = ({ className = "" }: { className?: string }) => (
-    <a
-      href={CONTACT.whatsappLink}
-      target="_blank"
-      rel="noopener noreferrer"
-      className={`inline-flex items-center gap-1.5 sm:gap-2 rounded-full bg-[#25D366] px-3.5 py-1.5 sm:px-5 sm:py-2.5 text-xs sm:text-sm font-semibold text-white transition-all duration-300 hover:bg-[#20BA5A] hover:shadow-lg hover:shadow-[#25D366]/25 hover:scale-105 active:scale-95 ${className}`}
-    >
-      <MessageCircle className="h-4 w-4 shrink-0 fill-white/10" />
-      <span>WhatsApp</span>
-    </a>
-  );
 
   return (
     <>

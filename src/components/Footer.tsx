@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { CONTACT, SOCIALS, SITE } from '@/lib/constants';
+import GeometricBackground from '@/components/GeometricBackground';
 
 const quickLinks = [
   { label: 'Início', href: '#hero' },
@@ -10,11 +11,14 @@ const quickLinks = [
 
 export default function Footer() {
   return (
-    <footer className="bg-[#111] text-gray-300 relative">
+    <footer className="bg-[#111] text-gray-300 relative overflow-hidden">
       {/* Gold decorative top border */}
       <div className="h-1 bg-[#C9A84C]" />
 
-      <div className="max-w-6xl mx-auto px-4 py-12">
+      {/* Linhas geométricas douradas sutis no rodapé */}
+      <GeometricBackground patternId="footer-geom-pattern" />
+
+      <div className="max-w-6xl mx-auto px-4 py-12 relative z-10">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           {/* Logo & Brand */}
           <div>

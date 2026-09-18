@@ -169,3 +169,36 @@ body {
 .faq-answer.open {
   max-height: 500px;
 }
+
+/* ============================================
+   GEOMETRIC GOLDEN LINES PATTERN
+   ============================================ */
+
+/* SVG geometric lines opacity transition and theme adaptation */
+.gold-geometric-svg {
+  opacity: 0.12;
+  transition: opacity 0.3s ease;
+}
+
+[data-theme="dark"] .gold-geometric-svg {
+  opacity: 0.22;
+}
+
+/* Geometric CSS Grid fallback/utility */
+.bg-geometric-pattern {
+  background-image: 
+    linear-gradient(to right, rgba(201, 168, 76, 0.08) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(201, 168, 76, 0.08) 1px, transparent 1px),
+    linear-gradient(45deg, rgba(201, 168, 76, 0.05) 1px, transparent 1px),
+    linear-gradient(-45deg, rgba(201, 168, 76, 0.05) 1px, transparent 1px);
+  background-size: 80px 80px, 80px 80px, 160px 160px, 160px 160px;
+}
+
+[data-theme="dark"] .bg-geometric-pattern {
+  background-image: 
+    linear-gradient(to right, rgba(201, 168, 76, 0.16) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(201, 168, 76, 0.16) 1px, transparent 1px),
+    linear-gradient(45deg, rgba(201, 168, 76, 0.10) 1px, transparent 1px),
+    linear-gradient(-45deg, rgba(201, 168, 76, 0.10) 1px, transparent 1px);
+}
+

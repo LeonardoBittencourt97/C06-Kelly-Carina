@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { HERO, CONTACT } from '@/lib/constants';
+import { HERO } from '@/lib/constants';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -132,11 +132,10 @@ export default function Hero() {
 
             {/* Bloco Inferior (Mobile: mais perto do fundo) */}
             <div className="flex flex-col gap-4 sm:gap-6 mt-auto lg:mt-0 pb-2">
-              {/* Subtitle — Permanece sempre em cinza escuro no modo claro e escuro */}
+              {/* Subtitle — Preto absoluto no mobile (#000000) e cinza escuro no desktop */}
               <p
                 ref={subtitleRef}
-                className="text-base sm:text-lg lg:text-xl max-w-xl leading-relaxed !text-[#2A2A2A] font-medium"
-                style={{ color: '#2A2A2A' }}
+                className="text-base sm:text-lg lg:text-xl max-w-xl leading-relaxed font-medium !text-black lg:!text-[#2A2A2A]"
               >
                 {HERO.subtitle}
               </p>
