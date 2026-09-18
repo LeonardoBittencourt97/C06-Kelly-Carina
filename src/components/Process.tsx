@@ -96,6 +96,7 @@ export default function Process() {
 
         {/* CTA Institucional de Alta Conversão */}
         <SectionCTA
+          variant="white"
           text="Iniciar Análise do Meu Processo"
           helperText="Dê o primeiro passo para garantir seus direitos com acompanhamento dedicado do início ao fim."
           message="Olá, Dra. Kelly! Gostaria de dar o primeiro passo e enviar minhas dúvidas/documentos para análise."

@@ -134,6 +134,7 @@ export default function EducationSection() {
 
         {/* CTA Institucional de Alta Conversão */}
         <SectionCTA
+          variant="white"
           text="Consultar Viabilidade do Meu Caso"
           helperText="Passou por perícia indevida, corte de benefício ou atraso do INSS? Avaliamos suas opções legais."
           message="Olá, Dra. Kelly! Identifiquei uma situação semelhante à minha no site e gostaria de uma orientação jurídica."

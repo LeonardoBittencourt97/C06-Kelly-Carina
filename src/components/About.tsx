@@ -183,6 +183,7 @@ export default function About() {
             {/* CTA Institucional de Alta Conversão */}
             <SectionCTA
               align="left"
+              variant="white"
               text="Agendar Atendimento com a Dra. Kelly"
               helperText="Atendimento consultivo individualizado e com total sigilo profissional."
               message="Olá, Dra. Kelly! Conheci sua trajetória pelo site e gostaria de agendar um atendimento para avaliar o meu caso."

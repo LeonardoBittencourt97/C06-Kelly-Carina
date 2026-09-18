@@ -104,6 +104,7 @@ export default function Contact() {
 
             <SectionCTA
               align="left"
+              variant="white"
               text="Agende Sua Consulta"
               helperText="Atendimento presencial ou online com horário marcado."
               message="Olá, Dra. Kelly! Gostaria de agendar uma consulta no seu escritório."

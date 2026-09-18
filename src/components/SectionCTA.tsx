@@ -8,6 +8,7 @@ interface SectionCTAProps {
   message?: string;
   className?: string;
   align?: 'center' | 'left';
+  variant?: 'gold' | 'white';
 }
 
 export default function SectionCTA({
@@ -16,8 +17,11 @@ export default function SectionCTA({
   message = 'Olá, Dra. Kelly! Gostaria de conversar com você sobre o meu caso previdenciário.',
   className = '',
   align = 'center',
+  variant = 'gold',
 }: SectionCTAProps) {
   const whatsappUrl = `https://wa.me/5541998702590?text=${encodeURIComponent(message)}`;
+
+  const isWhite = variant === 'white';
 
   return (
     <div
@@ -35,16 +39,26 @@ export default function SectionCTA({
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="group inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl text-sm sm:text-base font-semibold uppercase tracking-wider transition-all duration-300 hover:scale-105 hover:shadow-2xl shadow-lg active:scale-95"
-        style={{
-          background: 'linear-gradient(135deg, var(--color-gold), var(--color-gold-dark))',
-          color: '#0A0A0A',
-          boxShadow: '0 4px 20px rgba(201, 168, 76, 0.32)',
-        }}
+        className={`group inline-flex items-center justify-center gap-2.5 px-6 sm:px-8 py-3.5 sm:py-4 rounded-xl text-sm sm:text-base font-semibold uppercase tracking-wider transition-all duration-300 hover:scale-105 active:scale-95 ${
+          isWhite
+            ? 'bg-white text-[#0A0A0A] border-2 border-[#C9A84C] hover:border-[#8B6914] hover:bg-[#FFFDF7] shadow-[0_4px_20px_rgba(201,168,76,0.35)] hover:shadow-[0_8px_28px_rgba(201,168,76,0.55)]'
+            : 'text-[#0A0A0A] hover:shadow-2xl shadow-lg hover:brightness-105'
+        }`}
+        style={
+          isWhite
+            ? { boxShadow: '0 4px 20px rgba(201, 168, 76, 0.35)' }
+            : {
+                background: 'linear-gradient(135deg, var(--color-gold), var(--color-gold-dark))',
+                color: '#0A0A0A',
+                boxShadow: '0 4px 20px rgba(201, 168, 76, 0.32)',
+              }
+        }
       >
         {/* WhatsApp Icon */}
         <svg
-          className="w-5 h-5 shrink-0 transition-transform duration-300 group-hover:scale-110"
+          className={`w-5 h-5 shrink-0 transition-transform duration-300 group-hover:scale-110 ${
+            isWhite ? 'text-[#25D366]' : 'fill-current'
+          }`}
           viewBox="0 0 24 24"
           fill="currentColor"
           aria-hidden="true"
@@ -56,7 +70,9 @@ export default function SectionCTA({
 
         {/* Subtle arrow */}
         <svg
-          className="w-4 h-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1"
+          className={`w-4 h-4 shrink-0 transition-transform duration-300 group-hover:translate-x-1 ${
+            isWhite ? 'text-[#8B6914]' : 'stroke-current'
+          }`}
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"

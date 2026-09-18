@@ -12,9 +12,12 @@ function WhatsAppBtn({ className = "" }: { className?: string }) {
       href={CONTACT.whatsappLink}
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-flex items-center gap-1.5 sm:gap-2 rounded-full bg-[#25D366] px-3.5 py-1.5 sm:px-5 sm:py-2.5 text-xs sm:text-sm font-semibold text-white transition-all duration-300 hover:bg-[#20BA5A] hover:shadow-lg hover:shadow-[#25D366]/25 hover:scale-105 active:scale-95 ${className}`}
+      className={`inline-flex items-center gap-1.5 sm:gap-2 rounded-full bg-white px-3.5 py-1.5 sm:px-5 sm:py-2 text-xs sm:text-sm font-semibold text-[#0A0A0A] border-2 border-[#C9A84C] hover:border-[#8B6914] hover:bg-[#FFFDF7] shadow-[0_2px_14px_rgba(201,168,76,0.3)] hover:shadow-[0_4px_18px_rgba(201,168,76,0.5)] transition-all duration-300 hover:scale-105 active:scale-95 ${className}`}
+      style={{
+        boxShadow: '0 2px 14px rgba(201, 168, 76, 0.3)',
+      }}
     >
-      <MessageCircle className="h-4 w-4 shrink-0 fill-white/10" />
+      <MessageCircle className="h-4 w-4 shrink-0 text-[#25D366] fill-[#25D366]/20" />
       <span>WhatsApp</span>
     </a>
   );
