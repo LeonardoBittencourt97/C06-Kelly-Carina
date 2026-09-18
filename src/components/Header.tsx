@@ -6,19 +6,37 @@ import { Menu, X, Moon, Sun, MessageCircle, ChevronDown } from "lucide-react";
 import { NAV, CONTACT } from "@/lib/constants";
 
 /* ---------- WhatsApp button (reused) ---------- */
-function WhatsAppBtn({ className = "" }: { className?: string }) {
+function WhatsAppBtn({
+  className = "",
+  isScrolled = false,
+}: {
+  className?: string;
+  isScrolled?: boolean;
+}) {
   return (
     <a
       href={CONTACT.whatsappLink}
       target="_blank"
       rel="noopener noreferrer"
-      className={`inline-flex items-center gap-1.5 sm:gap-2 rounded-full bg-white px-3.5 py-1.5 sm:px-5 sm:py-2 text-xs sm:text-sm font-semibold text-[#0A0A0A] border-2 border-[#C9A84C] hover:border-[#8B6914] hover:bg-[#FFFDF7] shadow-[0_2px_14px_rgba(201,168,76,0.3)] hover:shadow-[0_4px_18px_rgba(201,168,76,0.5)] transition-all duration-300 hover:scale-105 active:scale-95 ${className}`}
+      className={`inline-flex items-center gap-1.5 sm:gap-2 rounded-full bg-white px-3.5 py-1.5 sm:px-5 sm:py-2 text-xs sm:text-sm font-semibold transition-all duration-300 hover:scale-105 active:scale-95 ${
+        isScrolled
+          ? "border-2 border-[#25D366] text-[#25D366] hover:bg-[#F4FBF6] hover:border-[#20BA5A] shadow-[0_2px_14px_rgba(37,211,102,0.25)] hover:shadow-[0_4px_18px_rgba(37,211,102,0.45)]"
+          : "border-2 border-[#C9A84C] text-[#8B6914] hover:border-[#8B6914] hover:bg-[#FFFDF7] shadow-[0_2px_14px_rgba(201,168,76,0.3)] hover:shadow-[0_4px_18px_rgba(201,168,76,0.5)]"
+      } ${className}`}
       style={{
-        boxShadow: '0 2px 14px rgba(201, 168, 76, 0.3)',
+        boxShadow: isScrolled
+          ? "0 2px 14px rgba(37, 211, 102, 0.25)"
+          : "0 2px 14px rgba(201, 168, 76, 0.3)",
       }}
     >
-      <MessageCircle className="h-4 w-4 shrink-0 text-[#25D366] fill-[#25D366]/20" />
-      <span>WhatsApp</span>
+      <MessageCircle
+        className={`h-4 w-4 shrink-0 transition-colors duration-300 ${
+          isScrolled
+            ? "text-[#25D366] fill-[#25D366]/20"
+            : "text-[#C9A84C] fill-[#C9A84C]/20"
+        }`}
+      />
+      <span className="transition-colors duration-300">WhatsApp</span>
     </a>
   );
 }
@@ -68,10 +86,10 @@ export default function Header() {
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ease-in-out ${
           isScrolled
-            ? "bg-[var(--bg-primary)]/95 shadow-lg shadow-black/5 backdrop-blur-xl"
-            : "bg-[var(--bg-primary)]/80 backdrop-blur-md"
+            ? "bg-[var(--bg-primary)]/95 shadow-lg shadow-black/5 backdrop-blur-xl border-b border-[var(--border-color)]/60"
+            : "bg-transparent backdrop-blur-none border-b border-transparent shadow-none"
         }`}
       >
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2 sm:py-2.5 lg:px-8">
@@ -147,12 +165,12 @@ export default function Header() {
             >
               {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
             </button>
-            <WhatsAppBtn />
+            <WhatsAppBtn isScrolled={isScrolled} />
           </div>
 
           {/* ---------- Mobile right actions ---------- */}
           <div className="flex items-center gap-1.5 sm:gap-2 lg:hidden">
-            <WhatsAppBtn />
+            <WhatsAppBtn isScrolled={isScrolled} />
             <button
               onClick={toggleTheme}
               aria-label="Alternar tema"
