@@ -71,7 +71,7 @@ export default function Header() {
           <div className="flex-shrink-0 flex items-center">
             <a
               href="#hero"
-              className="group flex items-center gap-3 transition-transform duration-200 hover:opacity-90"
+              className="group flex items-center transition-transform duration-200 hover:opacity-90"
             >
               <div className="relative h-16 w-16 sm:h-20 sm:w-20 md:h-20 md:w-20">
                 <Image
@@ -81,14 +81,6 @@ export default function Header() {
                   className="object-contain"
                   priority
                 />
-              </div>
-              <div className="flex flex-col justify-center">
-                <span className="font-[family-name:var(--font-heading)] font-bold text-sm sm:text-base tracking-wider uppercase text-[var(--text-primary)] leading-tight">
-                  Kelly Carina
-                </span>
-                <span className="text-[11px] sm:text-xs text-[#C9A84C] font-semibold tracking-widest uppercase leading-tight">
-                  Advocacia
-                </span>
               </div>
             </a>
           </div>
@@ -178,23 +170,15 @@ export default function Header() {
         style={{ backgroundColor: "var(--bg-primary)" }}
       >
         {/* Drawer Header Fixo */}
-        <div className="flex items-center justify-between px-6 py-5 border-b border-[var(--border-color)] flex-shrink-0">
-          <div className="flex items-center gap-3">
-            <div className="relative h-12 w-12">
+        <div className="flex items-center justify-between px-6 py-4 border-b border-[var(--border-color)] flex-shrink-0">
+          <div className="flex items-center">
+            <div className="relative h-14 w-14">
               <Image
                 src={theme === "dark" ? "/Logo_com_fundo_preto.jpeg" : "/Logo_com_fundo_branco.jpeg"}
                 alt="Advocacia Kelly Carina"
                 fill
                 className="object-contain"
               />
-            </div>
-            <div className="flex flex-col justify-center">
-              <span className="font-[family-name:var(--font-heading)] font-bold text-sm tracking-wider uppercase text-[var(--text-primary)]">
-                Kelly Carina
-              </span>
-              <span className="text-[11px] text-[#C9A84C] font-semibold tracking-widest uppercase">
-                Advocacia
-              </span>
             </div>
           </div>
           <button
