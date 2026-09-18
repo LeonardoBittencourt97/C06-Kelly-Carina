@@ -108,6 +108,30 @@ export default function ServicesSection() {
                     >
                       {service.description}
                     </p>
+
+                    <a
+                      href={`https://wa.me/5541998702590?text=${encodeURIComponent(
+                        `Olá, Dra. Kelly! Gostaria de saber mais sobre ${service.title} e entender meus direitos previdenciários.`
+                      )}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-1.5 mt-3 text-xs sm:text-sm font-semibold tracking-wide transition-all duration-200 group/link hover:opacity-90"
+                      style={{ color: 'var(--color-gold)' }}
+                    >
+                      <span className="group-hover/link:underline">Saiba mais...</span>
+                      <svg
+                        className="w-3.5 h-3.5 transition-transform duration-200 group-hover/link:translate-x-1"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        strokeWidth="2.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        aria-hidden="true"
+                      >
+                        <polyline points="9 18 15 12 9 6" />
+                      </svg>
+                    </a>
                   </div>
                 </div>
               </div>
