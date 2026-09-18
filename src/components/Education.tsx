@@ -39,9 +39,9 @@ export default function EducationSection() {
 
   return (
     <section
-      id="educacao"
+      id="entenda-seus-direitos"
       ref={sectionRef}
-      className="py-20 px-4"
+      className="py-20 px-4 relative scroll-mt-20"
       style={{
         backgroundColor: 'color-mix(in srgb, var(--bg-primary) 95%, var(--color-gold) 5%)',
       }}

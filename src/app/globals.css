@@ -24,10 +24,10 @@
   --color-gray: #888888;
   --color-gray-light: #AAAAAA;
 
-  /* Fonts */
-  --font-heading: "var(--font-outfit)", "Inter", system-ui, sans-serif;
-  --font-body: "var(--font-inter)", "Inter", system-ui, sans-serif;
-  --font-serif: "var(--font-playfair)", Georgia, serif;
+  /* Fonts — Combinação: Raleway (Headings) + Merriweather (Body) */
+  --font-heading: var(--font-raleway), "Raleway", sans-serif;
+  --font-body: var(--font-merriweather), "Merriweather", Georgia, serif;
+  --font-serif: var(--font-merriweather), "Merriweather", Georgia, serif;
 }
 
 /* ============================================

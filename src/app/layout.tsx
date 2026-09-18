@@ -1,21 +1,19 @@
 import type { Metadata } from "next";
-import { Inter, Outfit, Playfair_Display } from "next/font/google";
+import { Raleway, Merriweather } from "next/font/google";
 import { SITE } from "@/lib/constants";
 import "./globals.css";
 
-const inter = Inter({
+const raleway = Raleway({
   subsets: ["latin"],
-  variable: "--font-inter",
+  variable: "--font-raleway",
+  display: "swap",
 });
 
-const outfit = Outfit({
+const merriweather = Merriweather({
   subsets: ["latin"],
-  variable: "--font-outfit",
-});
-
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  variable: "--font-playfair",
+  weight: ["300", "400", "700", "900"],
+  variable: "--font-merriweather",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -140,7 +138,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.variable} ${outfit.variable} ${playfair.variable} antialiased`}
+        className={`${raleway.variable} ${merriweather.variable} antialiased`}
         style={{ backgroundColor: "var(--bg-primary)", color: "var(--text-primary)" }}
       >
         {children}
