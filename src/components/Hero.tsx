@@ -116,7 +116,17 @@ export default function Hero() {
                 className="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight tracking-tight !text-[#0A0A0A]"
                 style={{ fontFamily: 'var(--font-heading)', color: '#0A0A0A' }}
               >
-                {HERO.tagline}
+                {/* Mobile: fluxo original */}
+                <span className="lg:hidden">
+                  {HERO.tagline}
+                </span>
+
+                {/* Desktop: quebras de linha específicas */}
+                <span className="hidden lg:inline">
+                  DEFENDENDO SEUS<br />
+                  DIREITOS!!<br />
+                  SECURANDO SEU FUTURO!!
+                </span>
               </h1>
             </div>
 
