@@ -13,6 +13,7 @@ export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
   const badgeRef = useRef<HTMLSpanElement>(null);
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const mobileSubtitleRef = useRef<HTMLParagraphElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
   const buttonsRef = useRef<HTMLDivElement>(null);
   const desktopBgRef = useRef<HTMLDivElement>(null);
@@ -30,9 +31,16 @@ export default function Hero() {
       }
 
       tl.from(badgeRef.current, { opacity: 0, y: 20, duration: 0.6 })
-        .from(titleRef.current, { opacity: 0, y: 30, duration: 0.8 }, '-=0.3')
-        .from(subtitleRef.current, { opacity: 0, y: 20, duration: 0.6 }, '-=0.4')
-        .from(buttonsRef.current, { opacity: 0, y: 20, scale: 0.95, duration: 0.6 }, '-=0.3');
+        .from(titleRef.current, { opacity: 0, y: 30, duration: 0.8 }, '-=0.3');
+
+      if (mobileSubtitleRef.current) {
+        tl.from(mobileSubtitleRef.current, { opacity: 0, y: 20, duration: 0.6 }, '-=0.3');
+      }
+      if (subtitleRef.current) {
+        tl.from(subtitleRef.current, { opacity: 0, y: 20, duration: 0.6 }, '-=0.4');
+      }
+
+      tl.from(buttonsRef.current, { opacity: 0, y: 20, scale: 0.95, duration: 0.6 }, '-=0.3');
 
       ScrollTrigger.create({
         trigger: sectionRef.current,
@@ -128,14 +136,22 @@ export default function Hero() {
                   SECURANDO SEU FUTURO!!
                 </span>
               </h1>
+
+              {/* Subtitle Apenas no Mobile — Bem abaixo do H1, em preto absoluto (#000000) */}
+              <p
+                ref={mobileSubtitleRef}
+                className="lg:hidden text-base sm:text-lg leading-relaxed font-semibold !text-black mt-1"
+              >
+                {HERO.subtitle}
+              </p>
             </div>
 
-            {/* Bloco Inferior (Mobile: mais perto do fundo) */}
+            {/* Bloco Inferior (Mobile: botões perto do fundo; Desktop: subtítulo + botões) */}
             <div className="flex flex-col gap-4 sm:gap-6 mt-auto lg:mt-0 pb-2">
-              {/* Subtitle — Preto absoluto no mobile (#000000) e cinza escuro no desktop */}
+              {/* Subtitle Apenas no Desktop */}
               <p
                 ref={subtitleRef}
-                className="text-base sm:text-lg lg:text-xl max-w-xl leading-relaxed font-medium !text-black lg:!text-[#2A2A2A]"
+                className="hidden lg:block text-base sm:text-lg lg:text-xl max-w-xl leading-relaxed font-medium !text-[#2A2A2A]"
               >
                 {HERO.subtitle}
               </p>
