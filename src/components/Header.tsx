@@ -14,7 +14,7 @@ export default function Header() {
   // Theme init + scroll listener
   useEffect(() => {
     const saved = localStorage.getItem("theme") as "light" | "dark" | null;
-    const initial = saved ?? "light";
+    const initial = saved === "dark" ? "dark" : "light";
     setTheme(initial);
     document.documentElement.setAttribute("data-theme", initial);
 

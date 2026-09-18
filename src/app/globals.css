@@ -44,13 +44,13 @@ body {
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Dark theme (default) */
-[data-theme="dark"] {
-  --bg-primary: var(--color-dark);
-  --bg-card: var(--color-dark-card);
-  --border-color: var(--color-dark-border);
-  --text-primary: #FFFFFF;
-  --text-secondary: var(--color-gray-light);
+/* Root theme variables — Light theme by default */
+:root {
+  --bg-primary: var(--color-light);
+  --bg-card: var(--color-light-card);
+  --border-color: var(--color-light-border);
+  --text-primary: var(--color-dark);
+  --text-secondary: var(--color-gray);
 }
 
 /* Light theme */
@@ -60,6 +60,15 @@ body {
   --border-color: var(--color-light-border);
   --text-primary: var(--color-dark);
   --text-secondary: var(--color-gray);
+}
+
+/* Dark theme */
+[data-theme="dark"] {
+  --bg-primary: var(--color-dark);
+  --bg-card: var(--color-dark-card);
+  --border-color: var(--color-dark-border);
+  --text-primary: #FFFFFF;
+  --text-secondary: var(--color-gray-light);
 }
 
 /* ============================================
