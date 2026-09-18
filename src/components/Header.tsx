@@ -58,162 +58,170 @@ export default function Header() {
   );
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled
-          ? "bg-[var(--bg-primary)]/95 shadow-lg shadow-black/5 backdrop-blur-xl"
-          : "bg-[var(--bg-primary)]/80 backdrop-blur-md"
-      }`}
-    >
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2.5 lg:px-8">
-        {/* ---------- Logo ---------- */}
-        <a href="#hero" className="flex-shrink-0 flex items-center gap-2">
-          <div className="relative h-11 w-11 sm:h-12 sm:w-12">
-            <Image
-              src={theme === "dark" ? "/Logo_com_fundo_preto.jpeg" : "/Logo_com_fundo_branco.jpeg"}
-              alt="Advocacia Kelly Carina"
-              fill
-              className="object-contain"
-              priority
-            />
-          </div>
-          <div className="flex flex-col">
-            <span className="font-[family-name:var(--font-heading)] font-bold text-xs sm:text-sm tracking-wider uppercase text-[var(--text-primary)]">
-              Kelly Carina
-            </span>
-            <span className="text-[10px] sm:text-xs text-[#C9A84C] font-semibold tracking-widest uppercase">
-              Advocacia
-            </span>
-          </div>
-        </a>
-
-        {/* ---------- Desktop nav ---------- */}
-        <ul className="hidden items-center gap-1 lg:flex">
-          {NAV.map((item) => {
-            const hasChildren = "children" in item && item.children.length > 0;
-            return (
-              <li
-                key={item.label}
-                className="relative"
-                onMouseEnter={() => hasChildren && setHoveredItem(item.label)}
-                onMouseLeave={() => setHoveredItem(null)}
-              >
-                <a
-                  href={item.href}
-                  className="inline-flex items-center gap-1 rounded-lg px-3 py-2 font-[family-name:var(--font-heading)] text-sm text-[var(--text-primary)] transition-colors duration-200 hover:text-[#C9A84C]"
-                >
-                  {item.label}
-                  {hasChildren && (
-                    <ChevronDown
-                      className={`h-3.5 w-3.5 transition-transform duration-200 ${
-                        hoveredItem === item.label ? "rotate-180" : ""
-                      }`}
-                    />
-                  )}
-                </a>
-
-                {/* Submenu */}
-                {hasChildren && hoveredItem === item.label && (
-                  <ul className="absolute top-full left-0 z-50 mt-1 min-w-[220px] rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] p-2 shadow-xl backdrop-blur-xl">
-                    {item.children!.map((child) => (
-                      <li key={child.href}>
-                        <a
-                          href={child.href}
-                          className="block rounded-lg px-3 py-2 text-sm text-[var(--text-primary)] transition-colors duration-200 hover:bg-[#C9A84C]/10 hover:text-[#C9A84C]"
-                        >
-                          {child.label}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </li>
-            );
-          })}
-        </ul>
-
-        {/* ---------- Desktop right actions ---------- */}
-        <div className="hidden items-center gap-3 lg:flex">
-          <button
-            onClick={toggleTheme}
-            aria-label="Alternar tema"
-            className="rounded-full p-2 text-[var(--text-primary)] transition-colors duration-200 hover:bg-[var(--bg-card)] hover:text-[#C9A84C]"
-          >
-            {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-          </button>
-          <WhatsAppBtn />
-        </div>
-
-        {/* ---------- Mobile right actions ---------- */}
-        <div className="flex items-center gap-1.5 lg:hidden">
-          <button
-            onClick={toggleTheme}
-            aria-label="Alternar tema"
-            className="rounded-full p-2 text-[var(--text-primary)] transition-colors duration-200 hover:bg-[var(--bg-card)] hover:text-[#C9A84C]"
-          >
-            {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-          </button>
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
-            className="rounded-lg p-2 text-[var(--text-primary)] transition-colors duration-200 hover:bg-[var(--bg-card)] focus:outline-none"
-          >
-            {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
-        </div>
-      </nav>
-
-      {/* ---------- Mobile slide-in menu drawer ---------- */}
-      <div
-        className={`fixed inset-y-0 right-0 z-50 w-[85vw] max-w-sm transform bg-[var(--bg-primary)] border-l border-[var(--border-color)] shadow-2xl transition-transform duration-300 ease-in-out lg:hidden ${
-          isOpen ? "translate-x-0" : "translate-x-full"
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
+          isScrolled
+            ? "bg-[var(--bg-primary)]/95 shadow-lg shadow-black/5 backdrop-blur-xl"
+            : "bg-[var(--bg-primary)]/80 backdrop-blur-md"
         }`}
       >
-        <div className="flex h-full flex-col overflow-y-auto px-6 py-6">
-          {/* Drawer Top Bar */}
-          <div className="flex items-center justify-between pb-5 border-b border-[var(--border-color)]">
-            <div className="flex items-center gap-2">
-              <div className="relative h-10 w-10">
+        <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-2 sm:py-2.5 lg:px-8">
+          {/* ---------- Logo Container (bloco separado, dobro do tamanho) ---------- */}
+          <div className="flex-shrink-0 flex items-center">
+            <a
+              href="#hero"
+              className="group flex items-center gap-3 transition-transform duration-200 hover:opacity-90"
+            >
+              <div className="relative h-16 w-16 sm:h-20 sm:w-20 md:h-20 md:w-20">
                 <Image
                   src={theme === "dark" ? "/Logo_com_fundo_preto.jpeg" : "/Logo_com_fundo_branco.jpeg"}
                   alt="Advocacia Kelly Carina"
                   fill
                   className="object-contain"
+                  priority
                 />
               </div>
-              <div className="flex flex-col">
-                <span className="font-[family-name:var(--font-heading)] font-bold text-xs tracking-wider uppercase text-[var(--text-primary)]">
+              <div className="flex flex-col justify-center">
+                <span className="font-[family-name:var(--font-heading)] font-bold text-sm sm:text-base tracking-wider uppercase text-[var(--text-primary)] leading-tight">
                   Kelly Carina
                 </span>
-                <span className="text-[10px] text-[#C9A84C] font-semibold tracking-widest uppercase">
+                <span className="text-[11px] sm:text-xs text-[#C9A84C] font-semibold tracking-widest uppercase leading-tight">
                   Advocacia
                 </span>
               </div>
-            </div>
-            <button
-              onClick={closeMenu}
-              aria-label="Fechar menu"
-              className="rounded-lg p-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card)] transition-colors"
-            >
-              <X className="h-6 w-6" />
-            </button>
+            </a>
           </div>
 
-          {/* Navigation Links */}
-          <ul className="flex flex-col gap-1 py-4">
+          {/* ---------- Desktop nav ---------- */}
+          <ul className="hidden items-center gap-1 lg:flex">
+            {NAV.map((item) => {
+              const hasChildren = "children" in item && item.children.length > 0;
+              return (
+                <li
+                  key={item.label}
+                  className="relative"
+                  onMouseEnter={() => hasChildren && setHoveredItem(item.label)}
+                  onMouseLeave={() => setHoveredItem(null)}
+                >
+                  <a
+                    href={item.href}
+                    className="inline-flex items-center gap-1 rounded-lg px-3 py-2 font-[family-name:var(--font-heading)] text-sm text-[var(--text-primary)] transition-colors duration-200 hover:text-[#C9A84C]"
+                  >
+                    {item.label}
+                    {hasChildren && (
+                      <ChevronDown
+                        className={`h-3.5 w-3.5 transition-transform duration-200 ${
+                          hoveredItem === item.label ? "rotate-180" : ""
+                        }`}
+                      />
+                    )}
+                  </a>
+
+                  {/* Submenu */}
+                  {hasChildren && hoveredItem === item.label && (
+                    <ul className="absolute top-full left-0 z-50 mt-1 min-w-[220px] rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] p-2 shadow-xl backdrop-blur-xl">
+                      {item.children!.map((child) => (
+                        <li key={child.href}>
+                          <a
+                            href={child.href}
+                            className="block rounded-lg px-3 py-2 text-sm text-[var(--text-primary)] transition-colors duration-200 hover:bg-[#C9A84C]/10 hover:text-[#C9A84C]"
+                          >
+                            {child.label}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              );
+            })}
+          </ul>
+
+          {/* ---------- Desktop right actions ---------- */}
+          <div className="hidden items-center gap-3 lg:flex">
+            <button
+              onClick={toggleTheme}
+              aria-label="Alternar tema"
+              className="rounded-full p-2 text-[var(--text-primary)] transition-colors duration-200 hover:bg-[var(--bg-card)] hover:text-[#C9A84C]"
+            >
+              {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            </button>
+            <WhatsAppBtn />
+          </div>
+
+          {/* ---------- Mobile right actions ---------- */}
+          <div className="flex items-center gap-2 lg:hidden">
+            <button
+              onClick={toggleTheme}
+              aria-label="Alternar tema"
+              className="rounded-full p-2 text-[var(--text-primary)] transition-colors duration-200 hover:bg-[var(--bg-card)] hover:text-[#C9A84C]"
+            >
+              {theme === "dark" ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+            </button>
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              aria-label={isOpen ? "Fechar menu" : "Abrir menu"}
+              className="rounded-lg p-2.5 text-[var(--text-primary)] transition-colors duration-200 hover:bg-[var(--bg-card)] focus:outline-none"
+            >
+              {isOpen ? <X className="h-7 w-7" /> : <Menu className="h-7 w-7" />}
+            </button>
+          </div>
+        </nav>
+      </header>
+
+      {/* ---------- Mobile slide-in menu drawer (fora da tag header para não herdar restrições) ---------- */}
+      <div
+        className={`fixed inset-y-0 right-0 z-50 flex h-[100dvh] max-h-[100dvh] w-[85vw] max-w-sm flex-col bg-[var(--bg-primary)] border-l border-[var(--border-color)] shadow-2xl transition-transform duration-300 ease-in-out lg:hidden ${
+          isOpen ? "translate-x-0 pointer-events-auto" : "translate-x-full pointer-events-none"
+        }`}
+        style={{ backgroundColor: "var(--bg-primary)" }}
+      >
+        {/* Drawer Header Fixo */}
+        <div className="flex items-center justify-between px-6 py-5 border-b border-[var(--border-color)] flex-shrink-0">
+          <div className="flex items-center gap-3">
+            <div className="relative h-12 w-12">
+              <Image
+                src={theme === "dark" ? "/Logo_com_fundo_preto.jpeg" : "/Logo_com_fundo_branco.jpeg"}
+                alt="Advocacia Kelly Carina"
+                fill
+                className="object-contain"
+              />
+            </div>
+            <div className="flex flex-col justify-center">
+              <span className="font-[family-name:var(--font-heading)] font-bold text-sm tracking-wider uppercase text-[var(--text-primary)]">
+                Kelly Carina
+              </span>
+              <span className="text-[11px] text-[#C9A84C] font-semibold tracking-widest uppercase">
+                Advocacia
+              </span>
+            </div>
+          </div>
+          <button
+            onClick={closeMenu}
+            aria-label="Fechar menu"
+            className="rounded-lg p-2 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card)] transition-colors"
+          >
+            <X className="h-6 w-6" />
+          </button>
+        </div>
+
+        {/* Navigation Links Roláveis */}
+        <div className="flex-1 overflow-y-auto px-6 py-4">
+          <ul className="flex flex-col gap-1">
             {NAV.map((item) => {
               const hasChildren = "children" in item && item.children.length > 0;
               const isItemOpen = hoveredItem === item.label;
 
               return (
-                <li key={item.label} className="border-b border-[var(--border-color)]/40 last:border-b-0">
+                <li key={item.label} className="border-b border-[var(--border-color)]/50 last:border-b-0">
                   {hasChildren ? (
-                    <div>
+                    <div className="py-1">
                       <button
                         onClick={() =>
                           setHoveredItem(isItemOpen ? null : item.label)
                         }
-                        className="flex w-full items-center justify-between rounded-lg px-3 py-3.5 font-[family-name:var(--font-heading)] text-base font-medium text-[var(--text-primary)] transition-colors duration-200 hover:text-[#C9A84C]"
+                        className="flex w-full items-center justify-between rounded-lg px-3 py-3 font-[family-name:var(--font-heading)] text-base font-semibold text-[var(--text-primary)] transition-colors duration-200 hover:text-[#C9A84C]"
                       >
                         <span>{item.label}</span>
                         <ChevronDown
@@ -223,13 +231,13 @@ export default function Header() {
                         />
                       </button>
                       {isItemOpen && (
-                        <ul className="mb-2 ml-3 border-l-2 border-[#C9A84C]/40 pl-3 space-y-1">
+                        <ul className="mb-2 ml-3 border-l-2 border-[#C9A84C]/50 pl-3 space-y-1">
                           {item.children!.map((child) => (
                             <li key={child.href}>
                               <a
                                 href={child.href}
                                 onClick={closeMenu}
-                                className="block rounded-lg px-3 py-2 text-sm text-[var(--text-secondary)] transition-colors duration-200 hover:text-[#C9A84C] hover:bg-[#C9A84C]/5"
+                                className="block rounded-lg px-3 py-2.5 text-sm text-[var(--text-secondary)] transition-colors duration-200 hover:text-[#C9A84C] hover:bg-[#C9A84C]/5"
                               >
                                 {child.label}
                               </a>
@@ -242,7 +250,7 @@ export default function Header() {
                     <a
                       href={item.href}
                       onClick={closeMenu}
-                      className="block rounded-lg px-3 py-3.5 font-[family-name:var(--font-heading)] text-base font-medium text-[var(--text-primary)] transition-colors duration-200 hover:text-[#C9A84C]"
+                      className="block rounded-lg px-3 py-3 font-[family-name:var(--font-heading)] text-base font-semibold text-[var(--text-primary)] transition-colors duration-200 hover:text-[#C9A84C]"
                     >
                       {item.label}
                     </a>
@@ -251,14 +259,14 @@ export default function Header() {
               );
             })}
           </ul>
+        </div>
 
-          {/* Drawer Bottom Actions */}
-          <div className="mt-auto border-t border-[var(--border-color)] pt-5 flex flex-col gap-3">
-            <WhatsAppBtn className="w-full justify-center py-3 text-base shadow-md" />
-            <p className="text-center text-xs text-[var(--text-secondary)]">
-              {CONTACT.oab} • {CONTACT.city}/{CONTACT.state}
-            </p>
-          </div>
+        {/* Drawer Footer Fixo */}
+        <div className="mt-auto border-t border-[var(--border-color)] px-6 py-5 flex flex-col gap-3 flex-shrink-0 bg-[var(--bg-primary)]">
+          <WhatsAppBtn className="w-full justify-center py-3 text-base font-bold shadow-md" />
+          <p className="text-center text-xs text-[var(--text-secondary)]">
+            {CONTACT.oab} • {CONTACT.city}/{CONTACT.state}
+          </p>
         </div>
       </div>
 
@@ -269,6 +277,6 @@ export default function Header() {
           onClick={closeMenu}
         />
       )}
-    </header>
+    </>
   );
 }
