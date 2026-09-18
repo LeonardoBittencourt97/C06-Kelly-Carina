@@ -223,9 +223,9 @@ export default function LinksPage() {
 
         {/* ── LADO DIREITO (Desktop) / CONTEÚDO COMPLETO (Mobile) ── */}
         <div className="flex flex-col items-center justify-center w-full max-w-md mx-auto h-full max-h-[100dvh] py-2">
-          {/* Logo no topo dos cards (sem escrita textual 'Kelly Carina') */}
-          <div className="flex flex-col items-center flex-shrink-0 mb-3 sm:mb-4">
-            <div className="relative h-24 w-24 sm:h-28 sm:w-28 lg:h-32 lg:w-32 xl:h-36 xl:w-36 flex items-center justify-center">
+          {/* Logo no topo dos cards (Mobile: ocupando ~40% da tela na parte superior) */}
+          <div className="flex flex-col items-center flex-shrink-0 mb-2 sm:mb-3">
+            <div className="relative h-[38vh] max-h-[310px] w-[85vw] max-w-[310px] lg:h-32 lg:w-32 xl:h-36 xl:w-36 flex items-center justify-center">
               <Image
                 src="/Logo_com_fundo_branco.png"
                 alt="Advocacia Kelly Carina"
@@ -234,8 +234,8 @@ export default function LinksPage() {
                 priority
               />
             </div>
-            {/* Subtítulo elegante sem a escrita 'Kelly Carina' */}
-            <p className="text-xs sm:text-sm font-semibold tracking-widest uppercase text-[#C9A84C] mt-2 text-center">
+            {/* Subtítulo: cor preta no mobile */}
+            <p className="text-xs sm:text-sm font-bold tracking-widest uppercase text-[#0A0A0A] lg:text-[#C9A84C] mt-1 sm:mt-2 text-center">
               Direito Previdenciário • Curitiba/PR
             </p>
           </div>
