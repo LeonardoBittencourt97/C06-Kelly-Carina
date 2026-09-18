@@ -1,19 +1,20 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { Menu, X, Moon, Sun, MessageCircle, ChevronDown } from "lucide-react";
 import { NAV, CONTACT } from "@/lib/constants";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const [theme, setTheme] = useState<"light" | "dark">("dark");
+  const [theme, setTheme] = useState<"light" | "dark">("light");
   const [hoveredItem, setHoveredItem] = useState<string | null>(null);
 
   // Theme init + scroll listener
   useEffect(() => {
     const saved = localStorage.getItem("theme") as "light" | "dark" | null;
-    const initial = saved ?? "dark";
+    const initial = saved ?? "light";
     setTheme(initial);
     document.documentElement.setAttribute("data-theme", initial);
 
@@ -48,16 +49,20 @@ export default function Header() {
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-[var(--bg-primary)]/80 shadow-lg shadow-black/5 backdrop-blur-xl"
-          : "bg-transparent backdrop-blur-sm"
+          ? "bg-[var(--bg-primary)]/95 shadow-lg shadow-black/5 backdrop-blur-xl"
+          : "bg-[var(--bg-primary)]/80 backdrop-blur-md"
       }`}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 lg:px-8">
         {/* ---------- Logo ---------- */}
-        <a href="#hero" className="flex-shrink-0">
-          <span className="font-[family-name:var(--font-serif)] text-3xl font-bold text-[#C9A84C] transition-colors duration-300">
-            KC
-          </span>
+        <a href="#hero" className="flex-shrink-0 relative h-10 w-20">
+          <Image
+            src={theme === "dark" ? "/Logo_com_fundo_preto.jpeg" : "/Logo_com_fundo_branco.jpeg"}
+            alt="Advocacia Kelly Carina"
+            fill
+            className="object-contain"
+            priority
+          />
         </a>
 
         {/* ---------- Desktop nav ---------- */}

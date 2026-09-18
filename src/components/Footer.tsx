@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { CONTACT, SOCIALS, SITE } from '@/lib/constants';
 
 const quickLinks = [
@@ -11,22 +12,27 @@ export default function Footer() {
   return (
     <footer className="bg-[#111] text-gray-300 relative">
       {/* Gold decorative top border */}
-      <div className="h-1 bg-accent-gold" />
+      <div className="h-1 bg-[#C9A84C]" />
 
       <div className="max-w-6xl mx-auto px-4 py-12">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
           {/* Logo & Brand */}
           <div>
-            <span className="text-3xl font-bold text-accent-gold tracking-wider">
-              KC
-            </span>
+            <div className="relative h-16 w-32">
+              <Image
+                src="/Logo_com_fundo_preto.jpeg"
+                alt="Advocacia Kelly Carina"
+                fill
+                className="object-contain"
+              />
+            </div>
             <p className="mt-3 text-sm text-gray-400">{SITE.name}</p>
             <p className="text-sm text-gray-500 mt-1">{CONTACT.oab}</p>
           </div>
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-accent-gold font-bold uppercase mb-4 text-sm tracking-wide">
+            <h4 className="text-[#C9A84C] font-bold uppercase mb-4 text-sm tracking-wide">
               Links Rápidos
             </h4>
             <ul className="space-y-2">
@@ -34,7 +40,7 @@ export default function Footer() {
                 <li key={link.href}>
                   <a
                     href={link.href}
-                    className="text-sm text-gray-400 hover:text-accent-gold transition-colors"
+                    className="text-sm text-gray-400 hover:text-[#C9A84C] transition-colors"
                   >
                     {link.label}
                   </a>
@@ -43,7 +49,7 @@ export default function Footer() {
               <li>
                 <a
                   href="/links"
-                  className="text-sm text-gray-400 hover:text-accent-gold transition-colors"
+                  className="text-sm text-gray-400 hover:text-[#C9A84C] transition-colors"
                 >
                   Links
                 </a>
@@ -53,7 +59,7 @@ export default function Footer() {
 
           {/* Social */}
           <div>
-            <h4 className="text-accent-gold font-bold uppercase mb-4 text-sm tracking-wide">
+            <h4 className="text-[#C9A84C] font-bold uppercase mb-4 text-sm tracking-wide">
               Redes Sociais
             </h4>
             <ul className="space-y-2">
@@ -62,7 +68,7 @@ export default function Footer() {
                   href={SOCIALS.instagram}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-gray-400 hover:text-accent-gold transition-colors"
+                  className="text-sm text-gray-400 hover:text-[#C9A84C] transition-colors"
                 >
                   Instagram
                 </a>
@@ -72,7 +78,7 @@ export default function Footer() {
                   href={SOCIALS.facebook}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-sm text-gray-400 hover:text-accent-gold transition-colors"
+                  className="text-sm text-gray-400 hover:text-[#C9A84C] transition-colors"
                 >
                   Facebook
                 </a>
